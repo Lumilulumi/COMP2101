@@ -8,6 +8,7 @@ distroVersion=$(hostnamectl | grep -w "Operating System:" | awk '{print $3, $4, 
 network=$(hostname -I) #Gathers the IP address
 freeSpace=$(df -h | grep -w '/' | awk '{print $4}') #Displays the amount of freespace available
 
+#Displays the output in a readable format for people. 
 cat <<EOF
 My Computer System Info
 
