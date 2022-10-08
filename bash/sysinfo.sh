@@ -1,22 +1,22 @@
 #!/bin/bash
+#improved sysinfo script.
 
-# Displays the Fully-Qualified domain name
-echo 'FQDN:' "$(hostname --fqdn)"
+#gathering data for the script
 
-#Displays the Operating System name and Version
-echo 'Host Information:' 
-cat <<EOF 
-$(hostnamectl)
-EOF
+FQDN=$(hostname --fqdn) #gathers the FQDN of the machine
+distroVersion=$(hostnamectl | grep -w "Operating System:" | awk '{print $3, $4, $5}') #Gathers the Distro Name and Version
+network=$(hostname -I) #Gathers the IP address
+freeSpace=$(df -h | grep -w '/' | awk '{print $4}') #Displays the amount of freespace available
 
-#Displays the IP Addresses without any 127. ones
-echo 'IP addresses:'
 cat <<EOF
-$(hostname -I)
-EOF
+My Computer System Info
 
-#displays spave available in the only Root Filesystem
-echo 'Rootfile system status:'
-cat <<EOF
-$(df -h /dev/sda3)
+=======================
+
+FQDN:  $FQDN
+Operating System and Version: $distroVersion
+IP Address: $network
+Root Filesystem Free Space: $freeSpace
+
+=======================
 EOF
